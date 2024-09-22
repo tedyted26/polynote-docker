@@ -37,6 +37,6 @@ fi
 printf "\n======================\n"
 printf "Setting up Polynote\n"
 printf "======================\n\n"
-source /opt/polynote/polynote.py
+python3 /opt/polynote/polynote.py
 
 sleep infinity
