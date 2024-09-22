@@ -13,7 +13,8 @@ RUN wget -q https://github.com/polynote/polynote/releases/download/$POLYNOTE_VER
     echo "DIST_TAR=$DIST_TAR" && \
     rm $DIST_TAR
 
-COPY —chown="$USERID":"$GROUPID" start_app.sh /usr/local/bin/start_app
+COPY --chown="$USERID":"$GROUPID" start_app.sh /usr/local/bin/start_app
+RUN chmod +x /usr/local/bin/start_app
 
 USER $USERID
 
@@ -43,7 +44,5 @@ USER ${NB_USER}
 
 # use the same scala version for server
 ENV POLYNOTE_SCALA_VERSION=${SCALA_VERSION}
-
-RUN chmod +x /usr/local/bin/start_app
 
 ENTRYPOINT /usr/local/bin/start_app
