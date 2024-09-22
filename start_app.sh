@@ -13,8 +13,6 @@ while getopts ":d:i:c:h:e:xg:f:p:u:s:n:l:m:" option; do
     esac
 done
 
-# Add
-
 if [[ -f "$INITIALIZATION" ]]; then
     printf "\n======================\n"
     printf "Running Initialization\n"
@@ -34,6 +32,11 @@ if [[ -f "$INITIALIZATION" ]]; then
             ;;
     esac
 fi    
- 
+
+# Launch Polynote and set dependencies and configurations
+printf "\n======================\n"
+printf "Setting up Polynote\n"
+printf "======================\n\n"
+source /opt/polynote/polynote.py
 
 sleep infinity
