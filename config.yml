@@ -48,6 +48,12 @@ listen:
 #  # The location Polynote puts various caches, such as virtual environments created for your notebooks.
 #  cache: tmp
 
+storage:
+  dir: /work/poly_notebooks
+  mounts:
+    examples:
+      dir: examples
+
 ##########################################################
 # Configure the way Polynote runs Kernels and Interpreters
 ##########################################################
