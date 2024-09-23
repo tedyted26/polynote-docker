@@ -49,7 +49,7 @@ listen:
 #  cache: tmp
 
 storage:
-  dir: /work/poly_notebooks
+  dir: /work/notebooks
   mounts:
     examples:
       dir: examples
