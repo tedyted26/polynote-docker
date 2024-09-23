@@ -1,5 +1,5 @@
-FROM dreg.cloud.sdu.dk/ucloud-apps/spark-cluster:3.5.2
-
+FROM dreg.cloud.sdu.dk/ucloud-apps/spark-cluster:3.2.2
+# Changed spark version from 3.5.2 to 3.2.2
 USER 0
 
 ARG POLYNOTE_VERSION
