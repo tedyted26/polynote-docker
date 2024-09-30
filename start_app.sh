@@ -33,12 +33,10 @@ if [[ -f "$INITIALIZATION" ]]; then
     esac
 fi    
 
-# Launch Polynote and set dependencies and configurations
+# Launch Polynote
 printf "\n======================\n"
 printf "Setting up Polynote\n"
 printf "======================\n\n"
-# Set Java version to 11
-sudo update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
 python3 /opt/polynote/polynote.py
 
 sleep infinity
