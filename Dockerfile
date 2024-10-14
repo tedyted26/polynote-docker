@@ -32,6 +32,14 @@ COPY --chown="$USERID":"$GROUPID" config.yml /opt/polynote/config.yml
 COPY --chown="$USERID":"$GROUPID" examples /opt/polynote/examples
 RUN chmod +x /usr/local/bin/start_app
 
+# Fixme: just trying if this works
+RUN git remote add origin https://github.com/polynote/polynote.git \
+    && git config core.sparseCheckout true \
+    && echo "docs-site/docs/docs/examples/" >> .git/info/sparse-checkout \
+    && git pull origin 938a1c0557d4689ea66fa3da20e6bd48da448cff \
+    && mv docs-site/docs/docs/examples /work/examples \
+    && rm -rf .git docs-site
+
 # Install pip requirements into the container
 RUN conda run -n poly pip install -r /opt/polynote/requirements.txt
 
