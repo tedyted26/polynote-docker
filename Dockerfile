@@ -34,6 +34,11 @@ COPY --chown="$USERID":"$GROUPID" config.yml /opt/polynote/config.yml
 COPY --chown="$USERID":"$GROUPID" examples /opt/polynote/examples
 RUN chmod +x /usr/local/bin/start_app
 
+# Install pip requirements into the container
+RUN mamba run -n poly pip install -r /opt/polynote/requirements.txt
+
+WORKDIR /tmp
+
 # Fixme: just trying if this works
 RUN git init polynote \
     && git -C polynote remote add origin https://github.com/polynote/polynote.git \
@@ -42,9 +47,6 @@ RUN git init polynote \
     && git -C polynote pull origin master \
     && mv polynote/docs-site/docs/docs/examples /work/examples \
     && rm -rf polynote
-
-# Install pip requirements into the container
-RUN mamba run -n poly pip install -r /opt/polynote/requirements.txt
 
 WORKDIR /work
 
