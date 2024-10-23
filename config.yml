@@ -49,7 +49,7 @@ listen:
 #  cache: tmp
 
 storage:
-  dir: /work/notebooks
+  dir: /work/
   mounts:
     examples:
       dir: examples

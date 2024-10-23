@@ -38,14 +38,9 @@ if [[ -f "$CONFIGURATION" ]]; then
     printf "======================\n\n"
     case "$CONFIGURATION" in
         *.yml)
-        # The if can be removed.
-            if grep -q -E '^listen:\s*$' config.yml && \
-               grep -q -E '^\s+host:\s+0\.0\.0\.0\s*$' config.yml && \
-               grep -q -E '^\s+port:\s+8192\s*$' config.yml; then
+            # TODO: comment
                 cp "$CONFIGURATION" /opt/polynote/config.yml || exit_err "Failed to add configuration from $CONFIGURATION"
-            else
-                echo "Host or port listen configuration is not correctly set."
-            fi
+            
             ;;
         *)
             exit_err "File format not correct. Configuration must be specified in a *.yml file."
@@ -57,6 +52,6 @@ fi
 printf "\n======================\n"
 printf "Setting up Polynote\n"
 printf "======================\n\n"
-python3 /opt/polynote/polynote.py
+/opt/conda/envs/poly/bin/python3.7 /opt/polynote/polynote.py
 
 sleep infinity
