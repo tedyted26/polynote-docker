@@ -34,8 +34,12 @@ if [[ -f "$CONFIGURATION" ]]; then
     printf "======================\n\n"
     case "$CONFIGURATION" in
         *.yml)
-            # TODO: comment
-                cp "$CONFIGURATION" /opt/polynote/config.yml || exit_err "Failed to add configuration from $CONFIGURATION"
+            # Copy provided configuration into installation directory.
+            # Configuration file must have the following lines (identations are important):
+            # listen:
+            #  host: 0.0.0.0
+            #  port: 8192
+            cp "$CONFIGURATION" /opt/polynote/config.yml || exit_err "Failed to add configuration from $CONFIGURATION"
             
             ;;
         *)
@@ -48,6 +52,10 @@ fi
 printf "\n======================\n"
 printf "Setting up Polynote\n"
 printf "======================\n\n"
-/opt/conda/envs/poly/bin/python3.7 /opt/polynote/polynote.py
+
+mamba init bash \
+ && source ~/.bashrc \
+ && mamba activate /opt/conda/envs/poly \
+ && python3 /opt/polynote/polynote.py
 
 sleep infinity
