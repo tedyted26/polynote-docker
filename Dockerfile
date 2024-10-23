@@ -43,7 +43,7 @@ WORKDIR /tmp
 RUN git init polynote \
     && git -C polynote remote add origin https://github.com/polynote/polynote.git \
     && git -C polynote config core.sparseCheckout true \
-    && echo "docs-site/docs/docs/examples/" >> .git/info/sparse-checkout \
+    && echo "docs-site/docs/docs/examples/" >> polynote/.git/info/sparse-checkout \
     && git -C polynote pull origin master \
     && mv polynote/docs-site/docs/docs/examples /work/examples \
     && rm -rf polynote
