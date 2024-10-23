@@ -1,7 +1,7 @@
 FROM dreg.cloud.sdu.dk/ucloud-apps/spark-cluster:3.5.2
 USER 0
 
-ARG POLYNOTE_VERSION="0.6.0"
+ARG POLYNOTE_VERSION="0.5.2"
 ARG PYTHON_VERSION="3.7"
 ARG OPENJDK_VERSION="8"
 ARG SCALA_VERSION="2.12"
@@ -35,12 +35,13 @@ COPY --chown="$USERID":"$GROUPID" examples /opt/polynote/examples
 RUN chmod +x /usr/local/bin/start_app
 
 # Fixme: just trying if this works
-# RUN git remote add origin https://github.com/polynote/polynote.git \
-#    && git config core.sparseCheckout true \
-#    && echo "docs-site/docs/docs/examples/" >> .git/info/sparse-checkout \
-#    && git pull origin 938a1c0557d4689ea66fa3da20e6bd48da448cff \
-#    && mv docs-site/docs/docs/examples /work/examples \
-#    && rm -rf .git docs-site
+RUN git init polynote \
+    && git -C polynote remote add origin https://github.com/polynote/polynote.git \
+    && git -C polynote config core.sparseCheckout true \
+    && echo "docs-site/docs/docs/examples/" >> .git/info/sparse-checkout \
+    && git -C polynote pull origin master \
+    && mv polynote/docs-site/docs/docs/examples /work/examples \
+    && rm -rf polynote
 
 # Install pip requirements into the container
 RUN mamba run -n poly pip install -r /opt/polynote/requirements.txt

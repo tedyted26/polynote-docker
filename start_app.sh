@@ -9,10 +9,6 @@ while getopts ":i:c:n:" option; do
     case "$option" in
         i) INITIALIZATION="$OPTARG" ;;
         c) CONFIGURATION="$OPTARG" ;;
-        # Notebook folder. By default /work/notebooks, but user can specify.
-        # This is different from "Select folders to use", 
-        # since it changes the configuration file so Polynote can detect the folder and show it in the interface
-        n) NB_DIR="$OPTARG" ;;
         :) exit_err "Missing argument for -$OPTARG" ;;
         *) exit_err "Invalid option -$OPTARG" ;;
     esac
