@@ -30,8 +30,6 @@ RUN wget -q https://github.com/polynote/polynote/releases/download/$POLYNOTE_VER
 # Copy start_app.sh and the configuration file
 COPY --chown="$USERID":"$GROUPID" start_app.sh /usr/local/bin/start_app
 COPY --chown="$USERID":"$GROUPID" config.yml /opt/polynote/config.yml
-# Since examples dissapear in newer versions, copy them into the directory they would be (check this for future releases)
-COPY --chown="$USERID":"$GROUPID" examples /opt/polynote/examples
 RUN chmod +x /usr/local/bin/start_app
 
 # Install pip requirements into the container
@@ -39,13 +37,13 @@ RUN mamba run -n poly pip install -r /opt/polynote/requirements.txt
 
 WORKDIR /tmp
 
-# Fixme: just trying if this works
+# Pull examples from official repository
 RUN git init polynote \
     && git -C polynote remote add origin https://github.com/polynote/polynote.git \
     && git -C polynote config core.sparseCheckout true \
     && echo "docs-site/docs/docs/examples/" >> polynote/.git/info/sparse-checkout \
     && git -C polynote pull origin master \
-    && mv polynote/docs-site/docs/docs/examples /work/examples \
+    && mv polynote/docs-site/docs/docs/examples /opt/polynote/examples \
     && rm -rf polynote
 
 WORKDIR /work
