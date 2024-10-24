@@ -53,9 +53,10 @@ printf "\n======================\n"
 printf "Setting up Polynote\n"
 printf "======================\n\n"
 
-mamba init bash \
- && source ~/.bashrc \
- && mamba activate /opt/conda/envs/poly \
- && python3 /opt/polynote/polynote.py
+eval "$(/opt/conda/condabin/conda shell.bash hook)"
+conda init bash
+source ~/.bashrc
+conda activate /opt/conda/envs/poly
+python3 /opt/polynote/polynote.py
 
 sleep infinity

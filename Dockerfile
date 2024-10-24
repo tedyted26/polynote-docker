@@ -18,8 +18,8 @@ RUN mamba create -n poly python="$PYTHON_VERSION" && \
     mamba clean -a
 
 # Initialize the conda env
-RUN mamba init bash && \
-    echo "mamba activate poly" >> ~/.bashrc
+RUN conda init bash && \
+    echo "conda activate poly" >> ~/.bashrc
 
 # Install polynote
 RUN wget -q https://github.com/polynote/polynote/releases/download/$POLYNOTE_VERSION/$DIST_TAR && \
