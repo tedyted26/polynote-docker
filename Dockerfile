@@ -1,18 +1,25 @@
 FROM dreg.cloud.sdu.dk/ucloud-apps/spark-cluster:3.5.2
 USER 0
 
+# Polynote version 0.6.0 contains and installs version 0.5.2. This is a known issue. Check https://github.com/polynote/polynote/issues/1447
+# We stick to a "fake" 0.6.0 because Polynote 0.5.2 is no longer available in the releases page
 ARG POLYNOTE_VERSION="0.6.0"
-ARG PYTHON_VERSION="3.7"
+# Not recommended to change Python and OpenJDK versions until Polynote's official documentation says it supports them.
+ARG PYTHON_VERSION="3.7" 
 ARG OPENJDK_VERSION="8"
-ARG SCALA_VERSION="2.12"
 ARG DIST_TAR="polynote-dist.tar.gz"
+
+# Extract Scala version from Spark and set Polynote Scala version
+RUN SCALA_VERSION=$(spark-shell --version 2>&1 | grep -o 'Scala version [^ ]*' | awk '{print $3}' | awk -F. '{print $1 "." $2}') \
+  && export POLYNOTE_SCALA_VERSION=${SCALA_VERSION} \
+  && echo "export POLYNOTE_SCALA_VERSION=${SCALA_VERSION}" >> ~/.bashrc
 
 WORKDIR /opt
 
 RUN apt update -y && \
     apt install -y wget python3 python3-dev python3-pip build-essential
 
-# Create a conda env 
+# Create a conda env and install Python, Openjdk
 RUN mamba create -n poly python="$PYTHON_VERSION" && \
     mamba install -n poly openjdk="$OPENJDK_VERSION" pip && \
     mamba clean -a
@@ -50,8 +57,5 @@ WORKDIR /work
 
 # expose the (internal) port that polynote runs on
 EXPOSE 8192
-
-# use the same scala version for server - take this from spark-shell --version output
-ENV POLYNOTE_SCALA_VERSION=${SCALA_VERSION}
 
 ENTRYPOINT /usr/local/bin/start_app

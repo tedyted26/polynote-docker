@@ -35,12 +35,7 @@ if [[ -f "$CONFIGURATION" ]]; then
     case "$CONFIGURATION" in
         *.yml)
             # Copy provided configuration into installation directory.
-            # Configuration file must have the following lines (identations are important):
-            # listen:
-            #  host: 0.0.0.0
-            #  port: 8192
             cp "$CONFIGURATION" /opt/polynote/config.yml || exit_err "Failed to add configuration from $CONFIGURATION"
-            
             ;;
         *)
             exit_err "File format not correct. Configuration must be specified in a *.yml file."
