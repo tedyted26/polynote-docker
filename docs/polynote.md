@@ -83,7 +83,7 @@ Spark applications which require distributed computational resources can be subm
 
 where the Job entry is used to select the job ID of the Spark Cluster instance, created in advance. Besides, the Hostname parameter is employed to assign the URL of the master node in Polynote's Spark configuration. The default port on the master node is 7077. 
 
-![Spark Cluster configuration in Polynote](./img/spark_cluster_config.png)
+![Spark Cluster configuration in Polynote](./img/example_spark_cluster_config.png)
 
 ### Spark Application example
 Following [JupyterLab's example](https://docs.cloud.sdu.dk/Apps/jupyter-lab.html#cluster-deployment), the equivalent in Polynote is the following:
